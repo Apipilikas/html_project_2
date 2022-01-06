@@ -1,0 +1,257 @@
+:root {
+    --menuColor: #94acfc;
+    --blue: #215ef9;
+    --menu_underline: #50666f;
+    --error-color: #dc3545;
+    --success-color: rgba(40, 212, 40, 0.63);
+    --warning-color: #ffc107;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    font-weight: 100;
+    src: url(fonts/Manrope-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Manrope';
+    font-weight: 200;
+    src: url(fonts/Manrope-ExtraLight.ttf);
+}
+
+@font-face {
+    font-family: 'Manrope';
+    font-weight: 300;
+    src: url(fonts/Manrope-Light.ttf);
+}
+
+@font-face {
+    font-family: 'Manrope';
+    font-weight: 400;
+    src: url(fonts/Manrope-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Manrope';
+    font-weight: 500;
+    src: url(fonts/Manrope-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: 'Manrope';
+    font-weight: 600;
+    src: url(fonts/Manrope-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'Manrope';
+    font-weight: 700;
+    src: url(fonts/Manrope-ExtraBold.ttf);
+}
+
+h1, h2, p {
+    margin: 0em;
+    padding: 0.5em;
+}
+
+body {
+    background-color: #f2f0ef;
+    font-family: 'Manrope', sans-serif;
+    margin: 0em;
+    display: grid;
+    grid-template-areas: "header"
+                         "main"
+                         "footer";
+}
+
+main {
+    grid-area: main;
+}
+
+section img {
+    margin: 0.5em;
+}
+
+section h3 {
+    margin: 0.5em;
+}
+
+/* START-OF: header */
+
+header {
+    background-color: var(--blue);
+    font-size: 1.1em;
+    grid-area: header;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0em;
+    padding-left: 0em;
+    background-color: var(--menuColor);
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+nav li > a {
+    color: white;
+    text-decoration: none;
+}
+
+nav li {
+    color: white;
+    padding: 0.5em 1em;
+    flex-basis: 25%;
+}
+
+nav li:hover {
+    border-bottom: 0.5em solid var(--menu_underline);
+    transition: 0.5s;
+}
+
+nav li:active {
+    background-color: var(--menu_underline);
+    border-top: 0.5em solid var(--menu_underline);
+    border-bottom: 0.5em solid var(--menu_underline);
+    transition: 0.15s;
+}
+
+/* END-OF: header */
+/* START-OF: footer */
+
+footer {
+    background-color: #dadbde;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    justify-items: center;
+    grid-area: footer;
+}
+
+footer address ul {
+    padding: 0em;
+    list-style-type: none;
+}
+
+.social-media-footer ul {
+    padding: 0em;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+
+.social-media-footer img {
+    border: 2px solid black;
+    border-radius: 9.5px;
+}
+
+.social-media-footer li:nth-child(1) img:hover {
+    background-color: #1d9bf0;
+}
+
+.social-media-footer li:nth-child(2) img:hover {
+    background-color: #385898;
+}
+
+.social-media-footer li:nth-child(3) img:hover {
+    background-color: #ff0000;
+}
+
+.social-media-footer li:nth-child(4) img:hover {
+    background: radial-gradient(at top right,#456eca,#a534ad,#b1338b,#e15947,#f4b753);
+}
+
+footer  address a {
+    color: black;
+    text-decoration: none;
+}
+
+footer address li {
+    display: block;
+}
+
+footer > p {
+    clear: both;
+    grid-column: 2/3;
+}
+
+/* END-OF: footer */
+/* START-OF: index.html */
+
+#search-area-content {
+    text-align: center;
+    margin: auto;
+    padding: 1em;
+    background-color: #9cb4f1;
+    border-radius: 5px;
+    width: 75%;
+}
+
+input[type="text"] {
+    margin: 1em auto 1em auto;
+    display: block;
+    width: 25%;
+    padding: 0.5em;
+    font-family: 'Manrope', sans-serif;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-align: center;
+}
+
+button {
+    padding: 0.8em;
+    margin-top: 0.5em;
+    /* width: 100%; */
+    border: 2px solid;
+    border-radius: 4px;
+    background-color: var(--blue);
+    font-family: 'Manrope', sans-serif;
+    /* color: white; */
+    transition-duration: 0.5s;
+}
+
+.about_us {
+    background: rgba(44, 132, 219, 0.3);
+}
+
+.about_us h2 {
+    color: white;
+    font-size: 1.6em;
+    background: rgba(44, 132, 219, 0.6);
+    margin: 0em;
+}
+
+#start_about img{
+    margin: 2em;
+    float: right;
+}
+
+#start_about p{
+    margin-top: 3.5em;
+    font-weight: bold;
+    font-size: large;
+}
+
+#end_about {
+    margin-bottom: 5em;
+}
+
+#end_about p{
+    max-width: 80em;
+}    
+
+#end_about article img{
+    border-radius: 80%;
+}
+
+#end_about h3{
+    font-weight: bold;
+    font-size: large;
+}
+
+#first {
+    margin-top: 1em;
+}
+
+/* END-OF: index.html */
