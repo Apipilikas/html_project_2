@@ -180,17 +180,29 @@ footer > p {
 /* START-OF: index.html */
 
 #search-area-content {
-    text-align: center;
-    margin: auto;
-    padding: 1em;
-    background-color: #9cb4f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em auto auto auto;
+    background-color: #b4c8fc;
     border-radius: 5px;
     width: 75%;
 }
 
-input[type="text"] {
+#search-area-content > h2 {
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #6f97fc;
+    border-radius: 5px;
+}
+
+#search-area-content > label {
+    margin-top: 1em;
+}
+
+#search-area-content > input[type="text"] {
     margin: 1em auto 1em auto;
-    display: block;
     width: 25%;
     padding: 0.5em;
     font-family: 'Manrope', sans-serif;
@@ -199,16 +211,69 @@ input[type="text"] {
     text-align: center;
 }
 
-button {
+#search-area-content > button {
     padding: 0.8em;
-    margin-top: 0.5em;
-    /* width: 100%; */
+    margin-bottom: 1em;
+    width: 20%;
     border: 2px solid;
     border-radius: 4px;
-    background-color: var(--blue);
+    background-color: #6e97fd;
     font-family: 'Manrope', sans-serif;
+    font-weight: 700;
     /* color: white; */
     transition-duration: 0.5s;
+}
+
+#search-area-content > button:hover {
+    background-color: #4575f0;
+}
+
+#search-area-content > button:active {
+    color: white;
+    transition: 0s;
+}
+
+.alert-box {
+    text-align: center;
+    display: block;
+    padding: 1em;
+    border-radius: 5px;
+    background-color: rgba(247, 30, 30, 0.651);
+    font-weight: 600;
+}
+
+#search-area-content > .alert-box {
+    margin-bottom: 1em;
+    display: none;
+}
+
+#results-area-content {
+    margin: 1em auto 1em auto;
+    background-color: #b4c8fc;
+    border-radius: 5px;
+    width: 75%;
+}
+
+#results-area-content > h3 {
+    margin: 0em;
+    padding: 0.5em;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #6f97fc;
+}
+
+#results-area-content > h3 > span {
+    color: white;
+}
+
+#results-area-content > ol {
+    /* list-style-type: none; */
+    padding: 1em;
+    margin: 0em 0em 0em 1em;
+}
+
+#results-area-content > ol > li {
+    padding: 1em;
 }
 
 .about_us {

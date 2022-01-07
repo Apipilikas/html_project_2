@@ -4,12 +4,13 @@
 
     <head>
         <title>Edume | Αρχική</title>
-        <!-- <link rel="icon" href="resources/edume_icon.png"> -->
+        <link rel="icon" href="resources/edume_icon.png">
         <meta name="description" content="An open source site for everyone">
         <meta name="keywords" content="Open source, Education, Edume">
         <meta name="author" content="Myrto Chatzivoukoudi, Evangelos Pipilikas">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.js"></script>
         <script src="script.js" type="text/javascript"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -33,16 +34,16 @@
 
         <main>
             <section class="main-content" id="search-area">
-                <h2>Αναζήτηση μαθήματος</h2>
                 <div id="search-area-content">
-                    <div class="input-text">
-                        <label for="search-input">Αναζητήστε ένα μάθημα με βάση κάποια λέξη κλειδί: </label>
-                        <input type="text" id="search-input" name="search-input"
+                    <h2>Αναζήτηση μαθήματος</h2>
+                    <label for="search-input">Αναζητήστε ένα μάθημα με βάση κάποια λέξη κλειδί: </label>
+                    <input type="text" id="search-input" name="search-input"
                             placeholder="Λέξη-κλειδί">
-                    </div>
-                    <div class="button-area" id="search-subject-by-keyword">
-                        <button type="button" id="search-btn">Αναζήτηση</button>
-                    </div>
+                    <span class="alert-box"></span>
+                    <button type="button" id="search-btn">Αναζήτηση</button>
+                </div>
+
+                <div id="results-area-content">
                 </div>
             </section>
 
