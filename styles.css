@@ -68,6 +68,10 @@ main {
     grid-area: main;
 }
 
+main > h1 {
+    color: #6277b6;
+}
+
 section img {
     margin: 0.5em;
 }
@@ -320,3 +324,119 @@ footer > p {
 }
 
 /* END-OF: index.html */
+/* START-OF: register.html */
+
+fieldset {
+    border:4px solid rgb(19, 97, 240);
+    background-color: #94acfc;
+    border-radius: 35px;
+    padding: 2.5em;
+    margin: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 3em;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas: "firstname lastname"
+                         "address telnumber"
+                         "edlevel edlevel"
+                         "email email"
+                         "pswrd valpswrd";
+}
+
+legend {
+    font-size: 20px;
+    border-radius: 35px;
+    background-color: rgb(19, 97, 240);
+    font-weight: bold;
+    color: white;
+    padding: 0.5em;
+}
+
+.input-text, .input-pswrd {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+#registration-form label {
+    margin-bottom: 0.5em;
+}
+
+.input-text > input, .input-pswrd > input {
+    display: block;
+    width: 100%;
+    padding: 0.5em;
+    font-family: 'Manrope', sans-serif;
+    box-sizing: border-box;
+}
+
+#registration-form .alert-box {
+    margin-top: 0.5em;
+    display: none;
+}
+
+#firstname-input-text {
+    grid-area: firstname;
+}
+
+#lastname-input-text {
+    grid-area: lastname;
+}
+
+#address-input-text {
+    grid-area: address;
+}
+
+#tel-number-input-text {
+    grid-area: telnumber;
+}
+
+#education-level-input-text {
+    grid-area: edlevel;
+}
+
+#email-input-text {
+    grid-area: email;
+}
+
+#password-input-pswrd {
+    grid-area: pswrd;
+}
+
+#validate-password-input-pswrd {
+    grid-area: valpswrd;
+}
+
+#reg-form-buttons {
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5em;
+    background-color: #bdd6ee;
+}
+
+form input[type="submit"], form input[type="reset"] {
+    padding: 0.8em;
+    margin-top: 0.5em;
+    width: 20%;
+    border: 2px solid;
+    border-radius: 4px;
+    background-color: var(--blue);
+    font-family: 'Manrope', sans-serif;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+form input[type="submit"]:hover, form input[type="reset"]:hover {
+    background-color: #04246c;
+}
+
+form input[type="submit"]:active, form input[type="reset"]:active {
+    background-color: #8494b8;
+    border: 2px solid black;
+    color: black;
+    transition-duration: 0s;
+}
+
+/* END-OF: register.html */
