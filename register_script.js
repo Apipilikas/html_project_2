@@ -22,16 +22,14 @@ function init() {
         myHeaders.append('Content-Type', 'application/json');
 
         let userdata = {
-            userID: 1,
             name: 'John'
         }
 
         let init = {
-            method: "POST",
+            method: 'POST',
             headers: myHeaders,
-            mode: 'no-cors',
             body: JSON.stringify(userdata)
-        }
+        };
 
         fetch(url, init)
         .then(response => {
