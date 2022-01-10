@@ -5,17 +5,21 @@ window.onload = init;
 
 var templates = {}
 
-templates.subjectNames = Handlebars.compile(`
+templates.subjects = Handlebars.compile(`
 <h3>Αποτελέσματα με λέξη-κλειδί <span>{{keyword}}</span></h3>
 {{#if noResults}}
 <span class="alert-box">Δεν βρέθηκε μάθημα με αυτήν την λέξη-κλειδί.</span>
 {{/if}}
 {{#unless noResults}}
-<ol>
-    {{#each subjectNames}}
-    <li>{{this}}</li>
-    {{/each}}
-</ol>
+{{#each subjects}}
+<div class="subject">
+    <div id="img-title-content">
+        <h4>{{this.title}}</h4>
+        <img src="https://elearning-aueb.herokuapp.com/static/images/{{this.img}}" width="150px" height="100px">
+    </div>
+    <p>{{this.description}}</p>
+</div>
+{{/each}}
 {{/unless}}
 `);
 
@@ -31,7 +35,7 @@ function init(){
     const comma = /[, ]/;
     const constraints = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     // Example
-    // makeRequest(url, "python");
+    //makeRequest(url, "python", div);
 
     search_btn.onclick = function (e) {
         var inptValue = search_input.value.trim();
@@ -78,18 +82,23 @@ function makeRequest(url, keyword, div){
     })
     .then (data => {
 
-        let subjectNamesData = {
+        let subjectData = {
             "keyword":keyword,
             "noResults":true,
-            "subjectNames":[]
+            "subjects":[]
         }
 
-        for (sbjName of data){
-            subjectNamesData.subjectNames.push(sbjName.title)
-            subjectNamesData.noResults = false;
+        for (subject of data){
+            let sbjItem = {
+                "title":subject.title,
+                "description":subject.description,
+                "img":subject.img
+            }
+            subjectData.subjects.push(sbjItem)
+            subjectData.noResults = false;
         }
 
-        let subjectContent = templates.subjectNames(subjectNamesData);
+        let subjectContent = templates.subjects(subjectData);
 
         div.innerHTML = subjectContent;
 
