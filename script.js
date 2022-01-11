@@ -12,13 +12,13 @@ templates.subjects = Handlebars.compile(`
 {{/if}}
 {{#unless noResults}}
 {{#each subjects}}
-<div class="subject">
+<article class="subject">
     <div id="img-title-content">
         <h4>{{this.title}}</h4>
         <img src="https://elearning-aueb.herokuapp.com/static/images/{{this.img}}" width="150px" height="100px">
     </div>
     <p>{{this.description}}</p>
-</div>
+</article>
 {{/each}}
 {{/unless}}
 `);
@@ -41,13 +41,13 @@ function init(){
         var inptValue = search_input.value.trim();
         console.log("Button clicked")
         if (inptValue === ''){
-            showAlertBox("Εισάγεται μία λέξη-κλειδί στο πεδίο!");
+            showAlertBox("Εισάγετε μία λέξη-κλειδί στο πεδίο!");
         }
         else if (letters.test(inptValue) && comma.test(inptValue)) {
-            showAlertBox("Εισάγεται μόνο μία λέξη-κλειδί στο πεδίο!");
+            showAlertBox("Εισάγετε μόνο μία λέξη-κλειδί στο πεδίο!");
         }
         else if (constraints.test(inptValue)) {
-            showAlertBox("Εισάγεται μόνο γράμματα και αριθμούς!");
+            showAlertBox("Εισάγετε μόνο γράμματα και αριθμούς!");
         }
         else {
             alertBox.style.display = "none";
