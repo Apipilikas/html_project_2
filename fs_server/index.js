@@ -1,13 +1,10 @@
 //https://youtu.be/xVYa20DCUv0
-var express = require('express');
-var app = express();
-var cors = require('cors');
-const DAO = require('./dao');
-//const User = require('./user');
-//user = dao.User("a","a","a","a","a","a","a");
-let dao = new DAO();
-//console.log(user);
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const dao = require('./dao');
 
+var dao = new DAO();
 app.use(cors());
 app.use(express.json());
 
@@ -17,15 +14,24 @@ app.get('/', function (req, res) {
   console.log("hello world")
 });
 app.post('/', function (req,res) {
-    //let contentype = req.header('Content-Type');
+    let contenType = req.header('Content-Type');
 
-    // if (contentype === 'application/json') {
-    //     console.log('json',req.body)
-    // }
-
-    //res.send("hi");
-    res.status(201).send("res");
-    console.log("post", req.body);
+    if (contenType === 'application/json') {
+      console.log('json',req.body);
+      if (dao.isUserWithEmail(req.body.email)) {
+        res.status(409);
+        res.send('{msg:"Το email που καταχωρήθηκε υπάρχει ήδη!"}')
+      }
+      else {
+        dao.addUser(req.body);
+        res.status(201);
+        res.send('{msg:"Ο χρήστης καταχωρήθηκε στο σύστημα με επιτυχία!"}');
+      }
+    }
+    else {
+      res.status(400);
+      res.send('{msg:"Τα δεδομένα που στάλθηκαν δεν υποστηρίζονται από τον server!"}');
+    }
 });
 
-//app.listen(8080);
+app.listen(8080);

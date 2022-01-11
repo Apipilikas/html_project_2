@@ -7,22 +7,28 @@
 // από των συναρτήσεων setters γιατί διαφορετικά καλούνται αναδρομικά.
 
 const User = require('./user');
+const mongodb = require('./mongodb');
+
+const client = mongodb.client;
+const usersCollection = mongodb.users;
 
 class DAO {
     constructor() {
-        this._users = new Array();
+        this._users = usersCollection;
+        //this._users = new Array();
     }
 
     get users() {
-        return this._users;
+        //return this._users;
     }
 
     set users(nUsers) {
-        this._users = nUsers;
+        //this._users = nUsers;
     }
 
-    addUser(firstName, lastName, address, telNumber, educationLevel, email, password) {
-        let user = new User(firstName, lastName, address, telNumber, educationLevel, email, password)
+    addUser(data) {
+        let user = new User(data.firstName, data.lastName, data.address, 
+                            data.telNumber, data.educationLevel, data.email, data.password);
         this._users.push(user);
     }
 
