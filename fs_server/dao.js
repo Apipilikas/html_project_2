@@ -9,17 +9,20 @@
 const User = require('./user');
 const mongodb = require('./mongodb');
 
-const client = mongodb.client;
 const usersCollection = mongodb.users;
 
 class DAO {
     constructor() {
         this._users = usersCollection;
-        //this._users = new Array();
     }
 
     get users() {
-        //return this._users;
+        return this._users.find().toArray(function(err, result){
+            if (err) {
+                throw err;
+            }
+            return result;
+        });
     }
 
     set users(nUsers) {
@@ -27,19 +30,27 @@ class DAO {
     }
 
     addUser(data) {
-        let user = new User(data.firstName, data.lastName, data.address, 
-                            data.telNumber, data.educationLevel, data.email, data.password);
-        this._users.push(user);
+        //let user = new User(data.firstName, data.lastName, data.address, 
+        //                    data.telNumber, data.educationLevel, data.email, data.password);
+        
+        return this._users.insertOne(data);
     }
 
-    isUserWithEmail(email) {
-        let flag = false;
-        for (user of this._users) {
-            if (user.email == email) {
-                flag = true;
+    isUserWithEmail(uEmail) {
+        let query = {name:uEmail};
+        return this._users.find(query).toArray()
+        .then(result => {
+            console.log(result)
+            if (result.length === 0) {
+                return false;
             }
-        }
-        return flag;
+            else {
+                return true;
+            }
+        })
+        
+        //console.log(a);
+        //return flag;
     }
 
     findUserByEmail(email) {

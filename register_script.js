@@ -36,7 +36,10 @@ function init() {
             if (response.status == 201) {
                 console.log("succ");
             }
+            console.log(response.json())
+            return response.json();
         })
+        .then(responseMsg => console.log(responseMsg.msg))
         .catch(error => {
             console.log(">!< Fetch error >!<", error);
         })
