@@ -22,7 +22,7 @@ app.post('/', function (req, res) {
 
   if (contenType === 'application/json') {
     console.log("New POST request with content: ", req.body);
-    dao.isUserWithEmail(req.body.name)
+    dao.isUserWithEmail(req.body.email)
       .then(result => {
         if (result) {
           console.log("User already exists! Send status 409.");

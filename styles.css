@@ -355,15 +355,6 @@ fieldset {
     padding: 2.5em;
     width: 50%;
     margin: 1em auto 1em auto;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 3em;
-    grid-template-rows: repeat(5, 1fr);
-    grid-template-areas: "firstname lastname"
-                         "address telnumber"
-                         "edlevel edlevel"
-                         "email email"
-                         "pswrd valpswrd"; */
 }
 
 legend {
@@ -377,7 +368,7 @@ legend {
 
 #registration-form > div {
     margin: 1em auto 1em auto;
-    width: 75%;
+    width: 80%;
     display: flex;
     flex-direction: column;
 }
@@ -403,38 +394,6 @@ legend {
     display: none;
     padding: 0.5em;
 }
-
-/* #firstname-input-text {
-    grid-area: firstname;
-}
-
-#lastname-input-text {
-    grid-area: lastname;
-}
-
-#address-input-text {
-    grid-area: address;
-}
-
-#tel-number-input-text {
-    grid-area: telnumber;
-}
-
-#education-level-input-text {
-    grid-area: edlevel;
-}
-
-#email-input-text {
-    grid-area: email;
-}
-
-#password-input-pswrd {
-    grid-area: pswrd;
-}
-
-#validate-password-input-pswrd {
-    grid-area: valpswrd;
-} */
 
 #reg-form-buttons {
     padding: 2em;
@@ -466,6 +425,70 @@ form input[type="submit"]:active, form input[type="reset"]:active {
     border: 2px solid black;
     color: black;
     transition-duration: 0s;
+}
+
+#submission-result-box-window {
+    display: none;
+    background-color: #dadbde;
+    border-radius: 6px;
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+#submission-result-box {
+    background: linear-gradient(to right, rgba(40, 212, 40, 0.856), #dadbde 30%);
+    width: 600px;
+    margin: auto;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: 0.2fr 0.8fr;
+    grid-template-areas: "result serverMsg"
+                         "result redirection";
+}
+
+#submission-result {
+    /* background-color: rgba(40, 212, 40, 0.63); */
+    
+    text-align: center;
+    margin: auto;
+    border-radius: 6px 0px 0px 6px;
+    padding: 0.2em;
+    grid-area: result;
+    font-size: 3em;
+}
+
+#server-message {
+    text-align: center;
+    font-weight: 700;
+    margin: auto;
+    padding: 1em;
+    grid-area: serverMsg;
+}
+
+#redirection {
+    grid-area: redirection;
+    text-decoration: none;
+    padding: 0.8em;
+    margin: 1em auto 1em auto;
+    border: 2px solid;
+    border-radius: 4px;
+    background-color: #99b6fd;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    color: black;
+    transition-duration: 0.5s;
+}
+
+#redirection:hover {
+    background-color: #5987fd;
+}
+
+#redirection:active {
+    color: white;
+    transition: 0s;
 }
 
 /* END-OF: register.html */

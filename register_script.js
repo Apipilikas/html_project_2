@@ -15,7 +15,10 @@ function init() {
     const alertBoxpswrdIn = document.querySelector('#password-input-pswrd > .alert-box');
     const validatePassword = document.getElementById('validate-password-txt');
     const alertBoxvalpswrdIn = document.querySelector('#validate-password-input-pswrd > .alert-box');
-    
+    const resultBox = document.getElementById('submission-result-box');
+    const resultBoxWindow = document.getElementById('submission-result-box-window');
+    const resultBoxSpans = resultBox.getElementsByTagName('span');
+    const resultBoxLink = resultBox.querySelector('a');
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -46,18 +49,41 @@ function init() {
         }
 
         if (valid) {
+            let status = "201";
+
             let userdata = {
-            firstname: txtInputs[0].value,
-            lastname: txtInputs[1].value,
+            firstName: txtInputs[0].value,
+            lastName: txtInputs[1].value,
             address: txtInputs[2].value,
-            telephoneNumber: telValue,
+            telNumber: telValue,
             educationLevel: txtInputs[3].value,
             email: emailValue,
             password: passwordValue
             }
 
             console.log(userdata);
-            //sendPostRequest(userdata);
+            
+            sendPostRequest(userdata)
+            .then(response => {
+                status = response.status;
+                return response.json();
+            })
+            .then(responseMsg => {
+                
+                if (status === "201") {
+                    changeToSuccess(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
+                }
+                else {
+                    changeToFail(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
+                }
+                console.log(responseMsg.msg)
+                blurMain();
+                disableForm(form);
+                showResultBox(resultBoxWindow);
+            })
+            .catch(error => {
+                console.log(">!< Fetch error >!<", error);
+            });
         }
     });
 }
@@ -75,10 +101,10 @@ function checktxtInputs(txtInputs, alertBoxtxtIn) {
         let txtInputValue = txtInputs[i].value.trim();
         if (isEmpty(txtInputValue)) {
             flag = false;
-            showAlertBox(alertBoxtxtIn[i], "Συμπληρώστε το πεδίο.");
+            showBox(alertBoxtxtIn[i], "Συμπληρώστε το πεδίο.");
         }
         else {
-            hideAlertBox(alertBoxtxtIn[i]);
+            hideBox(alertBoxtxtIn[i]);
         }
     }
     return flag;
@@ -88,14 +114,13 @@ function checkTelNumber(value, alertBox) {
     let flag = false;
     let constraints = /[0-9]{10}/;
     if (isEmpty(value)) {
-        console.log("aaa")
-        showAlertBox(alertBox, "Συμπληρώστε το πεδίο.")
+        showBox(alertBox, "Συμπληρώστε το πεδίο.")
     }
     else if (! constraints.test(value)) {
-        showAlertBox(alertBox, "O αριθμός που συπληρώσατε δεν είναι έκγυρος.");
+        showBox(alertBox, "O αριθμός που συπληρώσατε δεν είναι έκγυρος.");
     }
     else {
-        hideAlertBox(alertBox);
+        hideBox(alertBox);
         flag = true;
     }
     return flag;
@@ -105,10 +130,10 @@ function checkEmail(value, alertBox) {
     let flag = true;
     let constraints = /^([a-zA-Z\d\.-]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,4})(\.[a-zA-Z]{2,4})?$/;
     if (constraints.test(value)) {
-        hideAlertBox(alertBox);
+        hideBox(alertBox);
     }
     else {
-        showAlertBox(alertBox, "To email που συμπληρώσατε δεν είναι έγκυρο.");
+        showBox(alertBox, "To email που συμπληρώσατε δεν είναι έγκυρο.");
         flag = false;
     }
     return flag;
@@ -119,13 +144,13 @@ function confirmPassword(password, alertBox) {
     let specialCharactersRule = /[ !@#$%^&*]/;
     
     if (password.length < 8) {
-        showAlertBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες.");
+        showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες.");
     }
     else if (! specialCharactersRule.test(password)) {
-        showAlertBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον ένα από τα ειδικά σύμβολα !@#$%^&*.");
+        showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον ένα από τα ειδικά σύμβολα !@#$%^&*.");
     }
     else {
-        hideAlertBox(alertBox);
+        hideBox(alertBox);
         flag = true;
     }
     return flag;
@@ -134,23 +159,61 @@ function confirmPassword(password, alertBox) {
 function validatePasswords(password, validatePassword, alertBox) {
     let flag = true;
     if (password === validatePassword) {
-        hideAlertBox(alertBox);
+        hideBox(alertBox);
     }
     else {
-        showAlertBox(alertBox, "Oι κωδικοί που συμπληρώσατε δεν είναι οι ίδιοι.");
+        showBox(alertBox, "Oι κωδικοί που συμπληρώσατε δεν είναι οι ίδιοι.");
         flag = false;
     }
 
     return flag;
 }
 
-function showAlertBox(alertBox, message) {
-    alertBox.style.display = "initial";
-    alertBox.innerHTML = message;
+function showResultBox(box) {
+    box.style.display = "initial";
 }
 
-function hideAlertBox(alertBox) {
-    alertBox.style.display = "none";
+function showBox(box, message) {
+    box.style.display = "initial";
+    box.innerHTML = message;
+}
+
+function hideBox(box) {
+    box.style.display = "none";
+}
+
+function blurMain() {
+    let fieldset = document.getElementById('registration-form')
+    fieldset.style.opacity = "0.4"
+}
+
+function changeToSuccess(box, spans, link, message) {
+    box.style.background = "linear-gradient(to right, rgba(40, 212, 40, 0.856), #dadbde 30%)";
+    spans[0].innerHTML = "✔";
+    spans[1].innerHTML = message;
+    link.href = "index.html";
+    spans[2].innerHTML = "Αρχική";
+}
+
+function changeToFail(box, spans, link, message) {
+    box.style.background = "linear-gradient(to right, rgba(247, 30, 30, 0.856), #dadbde 30%)";
+    spans[0].innerHTML = "✖";
+    spans[1].innerHTML = message;
+    link.href = "register.html";
+    spans[2].innerHTML = "Φόρμα";
+}
+
+//✔✖
+
+function disableForm(form) {
+    let formInputs = form.getElementsByTagName('input');
+    let buttonsArea = document.getElementById('reg-form-buttons');
+    console.log(buttonsArea)
+
+    for (input of formInputs) {
+        input.readOnly = true;
+    }
+    buttonsArea.style.display = "none";
 }
 
 function sendPostRequest(data) {
@@ -167,12 +230,9 @@ function sendPostRequest(data) {
         body: JSON.stringify(data)
     };
 
-    fetch(url, init)
-    .then(response => response.json())
-    .then(responseMsg => {
-        console.log(responseMsg.msg)
-    })
-    .catch(error => {
-        console.log(">!< Fetch error >!<", error);
-    })
+    return fetch(url, init)
+    // .then(response => response.json())
+    // .then(responseMsg => {
+    //     console.log(responseMsg.msg)
+    // })
 }

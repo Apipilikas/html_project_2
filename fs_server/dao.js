@@ -37,7 +37,7 @@ class DAO {
     }
 
     isUserWithEmail(uEmail) {
-        let query = {name:uEmail};
+        let query = {_email:uEmail};
         return this._users.find(query).toArray()
         .then(result => {
             console.log(result)
