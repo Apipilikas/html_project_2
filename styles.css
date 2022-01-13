@@ -302,16 +302,6 @@ footer > p {
     padding: 1em;
 }
 
-/* #results-area-content > ol {
-    
-    padding: 1em;
-    margin: 0em 0em 0em 1em;
-}
-
-#results-area-content > ol > li {
-    padding: 1em;
-} */
-
 .about_us {
     background: rgba(44, 132, 219, 0.3);
 }
@@ -363,8 +353,9 @@ fieldset {
     background-color: #94acfc;
     border-radius: 35px;
     padding: 2.5em;
-    margin: 1em;
-    display: grid;
+    width: 50%;
+    margin: 1em auto 1em auto;
+    /* display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 3em;
     grid-template-rows: repeat(5, 1fr);
@@ -372,7 +363,7 @@ fieldset {
                          "address telnumber"
                          "edlevel edlevel"
                          "email email"
-                         "pswrd valpswrd";
+                         "pswrd valpswrd"; */
 }
 
 legend {
@@ -384,17 +375,22 @@ legend {
     padding: 0.5em;
 }
 
-.input-text, .input-pswrd {
-    margin: 0.5em;
+#registration-form > div {
+    margin: 1em auto 1em auto;
+    width: 75%;
     display: flex;
     flex-direction: column;
+}
+
+#registration-form abbr {
+    color: red;
 }
 
 #registration-form label {
     margin-bottom: 0.5em;
 }
 
-.input-text > input, .input-pswrd > input {
+#registration-form input {
     display: block;
     width: 100%;
     padding: 0.5em;
@@ -405,9 +401,10 @@ legend {
 #registration-form .alert-box {
     margin-top: 0.5em;
     display: none;
+    padding: 0.5em;
 }
 
-#firstname-input-text {
+/* #firstname-input-text {
     grid-area: firstname;
 }
 
@@ -437,7 +434,7 @@ legend {
 
 #validate-password-input-pswrd {
     grid-area: valpswrd;
-}
+} */
 
 #reg-form-buttons {
     padding: 2em;

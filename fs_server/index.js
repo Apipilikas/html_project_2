@@ -17,51 +17,34 @@ app.get('/', function (req, res) {
   console.log(dao.users())
   //console.log("hello world")
 });
-app.post('/', function (req,res) {
-    let contenType = req.header('Content-Type');
+app.post('/', function (req, res) {
+  let contenType = req.header('Content-Type');
 
-    if (contenType === 'application/json') {
-      console.log('json',req.body);
-      //dao.addUser(req.body);
-      dao.isUserWithEmail(req.body.name)
+  if (contenType === 'application/json') {
+    console.log("New POST request with content: ", req.body);
+    dao.isUserWithEmail(req.body.name)
       .then(result => {
         if (result) {
-          console.log("User already exists! Send status 409.")
-          res.status(409);
-          res.send('{msg:"Το email που καταχωρήθηκε υπάρχει ήδη!"}');
+          console.log("User already exists! Send status 409.");
+          res.status(409).send({ msg: "Το email που καταχωρήθηκε χρησιμοποιείται από άλλον χρήστη!" });
         }
         else {
           dao.addUser(req.body)
-          .then (() => {
-            console.log("User added successfully! Send status 201.")
-            res.status(201);
-            res.send('{msg:"Ο χρήστης καταχωρήθηκε στο σύστημα με επιτυχία!"}');
-          })
+            .then(() => {
+              console.log("User added successfully! Send status 201.");
+              res.status(201).send({ msg: "Ο χρήστης καταχωρήθηκε με επιτυχία!" });
+            })
         }
       })
-    //   if (dao.isUserWithEmail(req.body.email)) {
-    //     res.status(409);
-    //     res.send('{msg:"Το email που καταχωρήθηκε υπάρχει ήδη!"}')
-    //   }
-    //   else {
-    //     dao.addUser(req.body);
-    //     res.status(201);
-    //     res.send('{msg:"Ο χρήστης καταχωρήθηκε στο σύστημα με επιτυχία!"}');
-    //   }
-    // }
-    // else {
-    //   res.status(400);
-    //   res.send('{msg:"Τα δεδομένα που στάλθηκαν δεν υποστηρίζονται από τον server!"}');
-    }
-    else {
-      res.status(400);
-      res.send('{msg:"Τα δεδομένα που στάλθηκαν δεν υποστηρίζονται από τον server!"}');
-    }
+  }
+  else {
+    res.status(400).send({ msg: "Τα δεδομένα που στάλθηκαν δεν υποστηρίζονται από τον server!" });
+  }
 });
 
 client.connect()
-.then(() => {
-  console.log("Database connected!");
-  app.listen(8080);
-  console.log("Server is listening to port 8080!");
-})
+  .then(() => {
+    console.log("Database connected!");
+    app.listen(8080);
+    console.log("Server is listening to port 8080!");
+  })

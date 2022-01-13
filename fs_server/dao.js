@@ -25,15 +25,15 @@ class DAO {
         });
     }
 
-    set users(nUsers) {
+    //set users(nUsers) {
         //this._users = nUsers;
-    }
+    //}
 
     addUser(data) {
-        //let user = new User(data.firstName, data.lastName, data.address, 
-        //                    data.telNumber, data.educationLevel, data.email, data.password);
+        let user = new User(data.firstName, data.lastName, data.address, 
+                            data.telNumber, data.educationLevel, data.email, data.password);
         
-        return this._users.insertOne(data);
+        return this._users.insertOne(user);
     }
 
     isUserWithEmail(uEmail) {
