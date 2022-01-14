@@ -40,7 +40,7 @@ class DAO {
         let query = {_email:uEmail};
         return this._users.find(query).toArray()
         .then(result => {
-            console.log(result)
+            console.log("Results for user with email "+ uEmail,result)
             if (result.length === 0) {
                 return false;
             }

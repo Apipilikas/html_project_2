@@ -1,8 +1,5 @@
 window.onload = init;
 
-
-
-
 function init() {
     const form = document.getElementById('form');
     const txtInputs = document.querySelectorAll('input[type="text"]');
@@ -26,29 +23,27 @@ function init() {
         const emailValue = emailInput.value.trim();
         const passwordValue = password.value.trim();
         const validatePasswordValue = validatePassword.value.trim();
-        console.log("submit")
+        console.log("Submission button clicked!")
         
         //sendPostRequest(userdata);
-        let valid = true;
+        let valid = new Array(5).fill(false);
+        
         // Text inputs
-        valid = checktxtInputs(txtInputs, alertBoxtxtIn);
+        valid[0] = checktxtInputs(txtInputs, alertBoxtxtIn);
         
         // Tel input
-        valid = checkTelNumber(telValue, alertBoxtelIn);
+        valid[1] = checkTelNumber(telValue, alertBoxtelIn);
         
         // Email input
-        valid = checkEmail(emailValue, alertBoxemailIn);
+        valid[2] = checkEmail(emailValue, alertBoxemailIn);
         
         // Password input
-        valid = confirmPassword(passwordValue, alertBoxpswrdIn);
-        if (confirmPassword(passwordValue, alertBoxpswrdIn)) {
-            valid = validatePasswords(passwordValue, validatePasswordValue, alertBoxvalpswrdIn);
-        }
-        else {
-            valid = false;
+        valid[3] = confirmPassword(passwordValue, alertBoxpswrdIn);
+        if (valid[3]) {
+            valid[4] = validatePasswords(passwordValue, validatePasswordValue, alertBoxvalpswrdIn);
         }
 
-        if (valid) {
+        if (isFormValid(valid)) {
             let status = "201";
 
             let userdata = {
@@ -61,7 +56,7 @@ function init() {
             password: passwordValue
             }
 
-            console.log(userdata);
+            //console.log(userdata);
             
             sendPostRequest(userdata)
             .then(response => {
@@ -69,23 +64,31 @@ function init() {
                 return response.json();
             })
             .then(responseMsg => {
-                
-                if (status === "201") {
+                blurMain();
+                disableForm(form);
+                showResultBox(resultBoxWindow);
+                if (status == "201") {
                     changeToSuccess(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
                 }
                 else {
                     changeToFail(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
                 }
                 console.log(responseMsg.msg)
-                blurMain();
-                disableForm(form);
-                showResultBox(resultBoxWindow);
             })
             .catch(error => {
                 console.log(">!< Fetch error >!<", error);
             });
         }
     });
+}
+
+function isFormValid(validArray) {
+    for (valid of validArray) {
+        if (! valid) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function isEmpty(value) {
