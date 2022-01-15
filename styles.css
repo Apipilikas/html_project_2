@@ -345,6 +345,52 @@ footer > p {
     margin-top: 1em;
 }
 
+/* dropdown menu*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown-content {
+    margin-top: 0.5em;
+    display: none;
+    position: relative;
+    background-color: var(--menuColor);
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    border-left: 0.5em solid var(--menuColor);
+    color: white;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    border-left: 0.5em solid var(--menu_underline);
+    transition: 0.5s;
+}
+
+.dropdown-content a:active {
+    color: white;
+    background-color: var(--menu_underline);
+    transition: 0.15s;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropbtn {
+    color: white;
+    text-align: center;
+    padding-bottom: 18px;
+    text-decoration: none;
+}
+
 /* END-OF: index.html */
 /* START-OF: register.html */
 
@@ -492,3 +538,34 @@ form input[type="submit"]:active, form input[type="reset"]:active {
 }
 
 /* END-OF: register.html */
+/* START-OF: courses.html */
+
+#subject-results > h2 > span {
+    color: rgb(0, 102, 255);
+}
+
+.subject > h4 {
+    padding-left: 1em;
+    color: white;
+    margin-bottom: 0em;
+}
+
+#image-title-inCourses{
+    background-color: #82a7ff;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 0.1fr 0.8fr;
+    grid-template-areas: "img title";
+}
+
+#image-title-inCourses > h3 {
+    grid-area: title;
+    margin: auto auto auto 1em;
+}
+
+#image-title-inCourses > img {
+    border-radius: 5px;
+    border: 2px solid white;
+    box-shadow: 1px 1px 6px 0 #ffffff80;
+    grid-area: img;
+}
