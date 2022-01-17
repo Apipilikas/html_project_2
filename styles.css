@@ -391,6 +391,22 @@ footer > p {
     text-decoration: none;
 }
 
+.dropdown-content {
+    position: absolute;
+    width: 100%;
+    text-align: left;
+}
+
+nav li:not(nav ul > li:nth-child(4)):hover {
+    border-bottom: 0.5em solid var(--menu_underline);
+    transition: 0.5s;
+}
+
+nav li:nth-child(4):hover {
+    border-bottom: 0.5em solid var(--menuColor);
+    transition: 0.5s;
+}
+
 /* END-OF: index.html */
 /* START-OF: register.html */
 
@@ -447,7 +463,6 @@ legend {
     flex-direction: row;
     justify-content: center;
     gap: 1.5em;
-    background-color: #bdd6ee;
 }
 
 form input[type="submit"], form input[type="reset"] {
@@ -568,4 +583,52 @@ form input[type="submit"]:active, form input[type="reset"]:active {
     border: 2px solid white;
     box-shadow: 1px 1px 6px 0 #ffffff80;
     grid-area: img;
+}
+
+/* END-OF: courses.html */
+/* START-OF: profile.html */
+
+#signin-form-buttons {
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5em;
+}
+
+#signin-registration-form > div {
+    margin: 1em auto 1em auto;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+#signin-registration-form abbr {
+    color: red;
+}
+
+#signin-registration-form label {
+    margin-bottom: 0.5em;
+}
+
+#signin-registration-form input {
+    display: block;
+    width: 100%;
+    padding: 0.5em;
+    font-family: 'Manrope', sans-serif;
+    box-sizing: border-box;
+}
+
+#signin-registration-form .alert-box {
+    margin-top: 0.5em;
+    display: none;
+    padding: 0.5em;
+}
+
+#signin-form-buttons {
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5em;
 }

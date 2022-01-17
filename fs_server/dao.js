@@ -53,13 +53,17 @@ class DAO {
         //return flag;
     }
 
-    findUserByEmail(email) {
-        for (user of this._users) {
-            if (user.email == email) {
-                return user;
+    findUserByEmail(uEmail) {
+        let query = {_email:uEmail};
+        return this._users.find(query).toArray()
+        .then(result => {
+            if (result.length === 0) {
+                return null;
             }
-        }
-        return null;
+            else {
+                return this._users.find(query);
+            }
+        })
     }
 }
 

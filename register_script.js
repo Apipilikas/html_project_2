@@ -6,7 +6,7 @@ function init() {
     const alertBoxtxtIn = document.querySelectorAll('.input-text > .alert-box');
     const telInput = document.querySelector('input[type="tel"]');
     const alertBoxtelIn = document.querySelector('.input-tel > .alert-box');
-    const emailInput = document.querySelector('input[type="email"]')
+    const emailInput = document.querySelector('input[type="email"]');
     const alertBoxemailIn = document.querySelector('.input-email > .alert-box');
     const password = document.getElementById('password-txt');
     const alertBoxpswrdIn = document.querySelector('#password-input-pswrd > .alert-box');
