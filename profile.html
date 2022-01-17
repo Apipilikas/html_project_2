@@ -2,85 +2,89 @@
 
 <html lang="en">
 
-    <head>
-        <title>Edume | Προφίλ χρήστη</title>
-        <link rel="icon" href="resources/edume_icon.png">
-        <meta name="description" content="An open source site for everyone">
-        <meta name="keywords" content="Open source, Education, Edume">
-        <meta name="author" content="Myrto Chatzivoukoudi, Evangelos Pipilikas">
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="styles.css">
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.js"></script>
-        <script src="profile_script.js" type="text/javascript"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<head>
+    <title>Edume | Προφίλ χρήστη</title>
+    <link rel="icon" href="resources/edume_icon.png">
+    <meta name="description" content="An open source site for everyone">
+    <meta name="keywords" content="Open source, Education, Edume">
+    <meta name="author" content="Myrto Chatzivoukoudi, Evangelos Pipilikas">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.js"></script>
+    <script src="profile_script.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-    <body>
-        <header>
-            <img src="resources/edume_header_logo.png" alt="Edume logo">
-            <p>ΟΠΑ! Εδώ είμαστε...</p>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Αρχική</a></li>
-                </ul>
-            </nav>
-        </header>
+<body>
+    <header>
+        <img src="resources/edume_header_logo.png" alt="Edume logo">
+        <p>ΟΠΑ! Εδώ είμαστε...</p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Αρχική</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <main>
+    <main>
 
-            <h1>Είσοδος χρήστη</h1>
+        <h1>Είσοδος χρήστη</h1>
 
-            <form method="POST" id="signin-form" novalidate>
-                <fieldset id="signin-registration-form">
-                    <legend>Sign in</legend>
+        <form method="POST" id="signin-form" novalidate>
+            <fieldset id="signin-registration-form">
+                <legend>Sign in</legend>
 
-                    <div class="input-email" id="signin-email-input-text">
-                        <label for="email-txt">Email<abbr title="Υποχρεωτικό πεδίο">(*)</abbr>: </label>
-                        <input type="email" id="profile-email-txt" name="signin_email" placeholder="πχ. p3180000@aueb.gr" required>
-                        <span class="alert-box"></span>
-                    </div>
-
-                    <div class="input-pswrd" id="signin-password-input-pswrd">
-                        <label for="password-txt">Κωδικός<abbr title="Υποχρεωτικό πεδίο">(*)</abbr>: </label>
-                        <input type="password" id="profile-password-txt" name="signin_password" required>
-                        <span class="alert-box"></span>
-                    </div>
-
-                </fieldset>
-
-                <div class="buttons-area" id="signin-form-buttons">
-                    <input type="submit" id="profile-submit-btn" name="submit">
+                <div class="input-email" id="signin-email-input-text">
+                    <label for="email-txt">Email<abbr title="Υποχρεωτικό πεδίο">(*)</abbr>: </label>
+                    <input type="email" id="profile-email-txt" name="signin_email" placeholder="πχ. p3180000@aueb.gr"
+                        required>
+                    <span class="alert-box"></span>
                 </div>
-            </form>
 
-        </main>
+                <div class="input-pswrd" id="signin-password-input-pswrd">
+                    <label for="password-txt">Κωδικός<abbr title="Υποχρεωτικό πεδίο">(*)</abbr>: </label>
+                    <input type="password" id="profile-password-txt" name="signin_password" required>
+                    <span class="alert-box"></span>
+                </div>
 
-        <footer>
-            <img src="resources/edume_footer_logo.png" alt="Edume logo">
-            <address>
-                <ul>
-                    <li>📧<a href="mailto:MandA@aueb.gr">MandA@aueb.gr</a></li>
-                    <li>☎️<a href="tel:+302108203107">210 8203 107</a></li>
-                    <li>📍 Λεωφόρος Πατησσίων 76, 104 34 Αθήνα</li>
-                </ul>
-            </address>
-            <div class="social-media-footer">
-                <ul>
-                    <li><a href="https://twitter.com/?lang=el"><img src="resources/twitter_icon.png" alt="twitter"
-                                width="50" height="50"></a></li>
-                    <li><a href="https://el-gr.facebook.com/"><img src="resources/facebook_icon.png" alt="facebook"
-                                width="50" height="50"></a></li>
-                    <li><a href="https://www.youtube.com/"><img src="resources/youtube_icon.png" alt="youtube" width="50"
-                                height="50"></a></li>
-                    <li><a href="https://www.instagram.com/"><img src="resources/instagram_icon.png" alt="instagram"
-                                width="50" height="50"></a></li>
-                </ul>
+            </fieldset>
+
+            <div class="buttons-area" id="signin-form-buttons">
+                <input type="submit" id="profile-submit-btn" name="submit">
             </div>
-            <p>
-                Edume | Powered by M and A | 2021 <br>
-            </p>
-        </footer>
+        </form>
 
-    </body>
+        <div id="user-results">
+        </div>
+
+    </main>
+
+    <footer>
+        <img src="resources/edume_footer_logo.png" alt="Edume logo">
+        <address>
+            <ul>
+                <li>📧<a href="mailto:MandA@aueb.gr">MandA@aueb.gr</a></li>
+                <li>☎️<a href="tel:+302108203107">210 8203 107</a></li>
+                <li>📍 Λεωφόρος Πατησσίων 76, 104 34 Αθήνα</li>
+            </ul>
+        </address>
+        <div class="social-media-footer">
+            <ul>
+                <li><a href="https://twitter.com/?lang=el"><img src="resources/twitter_icon.png" alt="twitter"
+                            width="50" height="50"></a></li>
+                <li><a href="https://el-gr.facebook.com/"><img src="resources/facebook_icon.png" alt="facebook"
+                            width="50" height="50"></a></li>
+                <li><a href="https://www.youtube.com/"><img src="resources/youtube_icon.png" alt="youtube" width="50"
+                            height="50"></a></li>
+                <li><a href="https://www.instagram.com/"><img src="resources/instagram_icon.png" alt="instagram"
+                            width="50" height="50"></a></li>
+            </ul>
+        </div>
+        <p>
+            Edume | Powered by M and A | 2021 <br>
+        </p>
+    </footer>
+
+</body>
 
 </html>

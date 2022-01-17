@@ -1,4 +1,21 @@
+const urlPOST = "http://localhost:8080/signin"
+const urlGET = "http://localhost:8080/user?email="
+
 window.onload = init;
+
+var templates = {}
+
+templates.users = Handlebars.compile(`
+<section class="user-info">
+    <h3>{{name}}</h3>
+    <ul>
+        <li>Διεύθυνση: {{this.address}}</li>
+        <li>Τηλέφωνο: {{this.phone}}</li>
+        <li>Μορφωτικό επίπεδο: {{this.education}}</li>
+        <li>email: {{this.email}}</li>
+    </ul>
+</section>
+`);
 
 function init() {
     const form = document.getElementById('signin-form');
@@ -6,6 +23,7 @@ function init() {
     const alertBoxemailIn = document.querySelector('.input-email > .alert-box');
     const password = document.getElementById('profile-password-txt');
     const alertBoxpswrdIn = document.querySelector('#signin-password-input-pswrd > .alert-box');
+    const div = document.querySelector('#user-results');
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -13,36 +31,38 @@ function init() {
         const passwordValue = password.value.trim();
         console.log("Submission button clicked!")
 
-        if(checkEmail(emailValue, alertBoxemailIn) && checkPassword(passwordValue, alertBoxpswrdIn)){
+        if (checkEmail(emailValue, alertBoxemailIn) && checkPassword(passwordValue, alertBoxpswrdIn)) {
 
             let status = "201";
 
             let userdata = {
-            signin_email: emailValue,
-            signin_password: passwordValue,
+                signin_email: emailValue,
+                signin_password: passwordValue,
             }
 
             console.log(userdata);
 
             sendPostRequest(userdata)
-            .then(response => {
-                status = response.status;
-                return response.json();
-            })
+                .then(response => {
+                    status = response.status;
+                    return response.json();
+                })
 
-            .then(responseMsg => {
-                if (status == "202") {
-                    
-                }
-                else {
-                    
-                }
-                console.log(responseMsg.msg)
-            })
-            .catch(error => {
-                console.log(">!< Fetch error >!<", error);
-            });
-
+                .then(responseMsg => {
+                    console.log(responseMsg)
+                    console.log(status)
+                    if (status == "202") {
+                        makeGETRequest(urlGET, emailValue, div);
+                        console.log("ok here")
+                    }
+                    else {
+                        console.log(">!< Looks like something went wrong :/ >!<");
+                    }
+                    console.log(responseMsg.msg)
+                })
+                .catch(error => {
+                    console.log(">!< Fetch error >!<", error);
+                });
         }
     });
 }
@@ -74,8 +94,6 @@ function checkPassword(password, alertBox) {
 }
 
 function sendPostRequest(data) {
-    let url = "http://localhost:8080/"
-
 
     let myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -87,7 +105,7 @@ function sendPostRequest(data) {
         body: JSON.stringify(data)
     };
 
-    return fetch(url, init)
+    return fetch(urlPOST, init)
 }
 
 function showBox(box, message) {
@@ -115,4 +133,38 @@ function disableForm(form) {
         input.readOnly = true;
     }
     buttonsArea.style.display = "none";
+}
+
+function makeGETRequest(url, email, div) {
+    let myHeaders = new Headers();
+    myHeaders.append('Accept', 'application/json');
+
+    let init = {
+        method: "GET",
+        headers: myHeaders
+    }
+
+    fetch(url + email, init)
+        .then(response => {
+                return response.json();
+        })
+        .then(data => {
+
+            console.log(data);
+            let userItem = {
+                "name": data.firstname + data.lastName,
+                "address": data.address,
+                "phone": data.telNumber,
+                "education": data.educationLevel,
+                "email": data.email
+            }
+
+            let userContent = templates.users(userItem);
+
+            div.innerHTML = userContent;
+
+        })
+        .catch(error => {
+            console.log(">!< Fetch error >!<", error);
+        })
 }

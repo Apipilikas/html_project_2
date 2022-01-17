@@ -632,3 +632,11 @@ form input[type="submit"]:active, form input[type="reset"]:active {
     justify-content: center;
     gap: 1.5em;
 }
+
+#signin-registration-form {
+    padding: 0em 1em 1em 1em;
+    width: 30%;
+}
+
+.user-info{
+}

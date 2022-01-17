@@ -1,5 +1,5 @@
 const url = "https://elearning-aueb.herokuapp.com/courses/search?title=";
-const url2= "https://elearning-aueb.herokuapp.com/categories";
+const url2 = "https://elearning-aueb.herokuapp.com/categories";
 
 window.onload = init;
 
@@ -29,8 +29,8 @@ templates.subject_categories = Handlebars.compile(`
 {{/each}}
 `);
 
-function init(){
-    
+function init() {
+
     const search_input = document.getElementById('search-input');
     const search_btn = document.getElementById('search-btn');
     const div = document.querySelector('#results-area-content');
@@ -38,16 +38,14 @@ function init(){
     const letters = /[a-zA-ZΑ-Ωα-ω]/;
     const comma = /[, ]/;
     const constraints = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    // Example
-    //makeRequest(url, "python", div);
 
     var categ_div = document.querySelector('#results-content');
-    makeCategoriesRequest(url2,categ_div);
-    
+    makeCategoriesRequest(url2, categ_div);
+
     search_btn.onclick = function (e) {
         var inptValue = search_input.value.trim();
         console.log("Button clicked")
-        if (inptValue === ''){
+        if (inptValue === '') {
             showAlertBox("Εισάγετε μία λέξη-κλειδί στο πεδίο!");
         }
         else if (letters.test(inptValue) && comma.test(inptValue)) {
@@ -69,7 +67,7 @@ function init(){
     }
 }
 
-function makeRequest(url, keyword, div){
+function makeRequest(url, keyword, div) {
     let myHeaders = new Headers();
     myHeaders.append('Accept', 'application/json');
 
@@ -79,43 +77,43 @@ function makeRequest(url, keyword, div){
     }
 
     fetch(url + keyword, init)
-    .then(response => {
-        if (response.status == 200) {
-            return response.json();
-        }
-        else {
-            console.log(">!< Looks like something went wrong :/ >!<");
-        }
-    })
-    .then (data => {
-
-        let subjectData = {
-            "keyword":keyword,
-            "noResults":true,
-            "subjects":[]
-        }
-
-        for (subject of data){
-            let sbjItem = {
-                "title":subject.title,
-                "description":subject.description,
-                "img":subject.img
+        .then(response => {
+            if (response.status == 200) {
+                return response.json();
             }
-            subjectData.subjects.push(sbjItem)
-            subjectData.noResults = false;
-        }
+            else {
+                console.log(">!< Looks like something went wrong :/ >!<");
+            }
+        })
+        .then(data => {
 
-        let subjectContent = templates.subjects(subjectData);
+            let subjectData = {
+                "keyword": keyword,
+                "noResults": true,
+                "subjects": []
+            }
 
-        div.innerHTML = subjectContent;
-        
-    })
-    .catch(error => {
-        console.log(">!< Fetch error >!<", error);
-    })
+            for (subject of data) {
+                let sbjItem = {
+                    "title": subject.title,
+                    "description": subject.description,
+                    "img": subject.img
+                }
+                subjectData.subjects.push(sbjItem)
+                subjectData.noResults = false;
+            }
+
+            let subjectContent = templates.subjects(subjectData);
+
+            div.innerHTML = subjectContent;
+
+        })
+        .catch(error => {
+            console.log(">!< Fetch error >!<", error);
+        })
 }
 
-function makeCategoriesRequest(url, div){
+function makeCategoriesRequest(url, div) {
     let myHeaders = new Headers();
     myHeaders.append('Accept', 'application/json');
 
@@ -125,33 +123,33 @@ function makeCategoriesRequest(url, div){
     }
 
     fetch(url, init)
-    .then(response => {
-        if (response.status == 200) {
-            return response.json();
-        }
-        else {
-            console.log(">!< Looks like something went wrong :/ >!<");
-        }
-    })
-    .then (data => {
-
-        let categoryData = {
-            "categories":[]
-        }
-
-        for (category of data){
-            let categoryItem = {
-                "id":category.id,
-                "category":category.title,
+        .then(response => {
+            if (response.status == 200) {
+                return response.json();
             }
-            categoryData.categories.push(categoryItem)
-        }
-        let ctgrContent = templates.subject_categories(categoryData);
+            else {
+                console.log(">!< Looks like something went wrong :/ >!<");
+            }
+        })
+        .then(data => {
 
-        div.innerHTML = ctgrContent;
+            let categoryData = {
+                "categories": []
+            }
 
-    })
-    .catch(error => {
-        console.log(">!< Fetch error >!<", error);
-    })
+            for (category of data) {
+                let categoryItem = {
+                    "id": category.id,
+                    "category": category.title,
+                }
+                categoryData.categories.push(categoryItem)
+            }
+            let ctgrContent = templates.subject_categories(categoryData);
+
+            div.innerHTML = ctgrContent;
+
+        })
+        .catch(error => {
+            console.log(">!< Fetch error >!<", error);
+        })
 }

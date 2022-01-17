@@ -24,19 +24,19 @@ function init() {
         const passwordValue = password.value.trim();
         const validatePasswordValue = validatePassword.value.trim();
         console.log("Submission button clicked!")
-        
+
         //sendPostRequest(userdata);
         let valid = new Array(5).fill(false);
-        
+
         // Text inputs
         valid[0] = checktxtInputs(txtInputs, alertBoxtxtIn);
-        
+
         // Tel input
         valid[1] = checkTelNumber(telValue, alertBoxtelIn);
-        
+
         // Email input
         valid[2] = checkEmail(emailValue, alertBoxemailIn);
-        
+
         // Password input
         valid[3] = confirmPassword(passwordValue, alertBoxpswrdIn);
         if (valid[3]) {
@@ -47,44 +47,44 @@ function init() {
             let status = "201";
 
             let userdata = {
-            firstName: txtInputs[0].value,
-            lastName: txtInputs[1].value,
-            address: txtInputs[2].value,
-            telNumber: telValue,
-            educationLevel: txtInputs[3].value,
-            email: emailValue,
-            password: passwordValue
+                firstName: txtInputs[0].value,
+                lastName: txtInputs[1].value,
+                address: txtInputs[2].value,
+                telNumber: telValue,
+                educationLevel: txtInputs[3].value,
+                email: emailValue,
+                password: passwordValue
             }
 
             //console.log(userdata);
-            
+
             sendPostRequest(userdata)
-            .then(response => {
-                status = response.status;
-                return response.json();
-            })
-            .then(responseMsg => {
-                blurMain();
-                disableForm(form);
-                showResultBox(resultBoxWindow);
-                if (status == "201") {
-                    changeToSuccess(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
-                }
-                else {
-                    changeToFail(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
-                }
-                console.log(responseMsg.msg)
-            })
-            .catch(error => {
-                console.log(">!< Fetch error >!<", error);
-            });
+                .then(response => {
+                    status = response.status;
+                    return response.json();
+                })
+                .then(responseMsg => {
+                    blurMain();
+                    disableForm(form);
+                    showResultBox(resultBoxWindow);
+                    if (status == "201") {
+                        changeToSuccess(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
+                    }
+                    else {
+                        changeToFail(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
+                    }
+                    console.log(responseMsg.msg)
+                })
+                .catch(error => {
+                    console.log(">!< Fetch error >!<", error);
+                });
         }
     });
 }
 
 function isFormValid(validArray) {
     for (valid of validArray) {
-        if (! valid) {
+        if (!valid) {
             return false;
         }
     }
@@ -119,7 +119,7 @@ function checkTelNumber(value, alertBox) {
     if (isEmpty(value)) {
         showBox(alertBox, "Συμπληρώστε το πεδίο.")
     }
-    else if (! constraints.test(value)) {
+    else if (!constraints.test(value)) {
         showBox(alertBox, "O αριθμός που συπληρώσατε δεν είναι έκγυρος.");
     }
     else {
@@ -145,11 +145,11 @@ function checkEmail(value, alertBox) {
 function confirmPassword(password, alertBox) {
     let flag = false;
     let specialCharactersRule = /[ !@#$%^&*]/;
-    
+
     if (password.length < 8) {
         showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες.");
     }
-    else if (! specialCharactersRule.test(password)) {
+    else if (!specialCharactersRule.test(password)) {
         showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον ένα από τα ειδικά σύμβολα !@#$%^&*.");
     }
     else {
@@ -220,7 +220,7 @@ function disableForm(form) {
 }
 
 function sendPostRequest(data) {
-    let url = "http://localhost:8080/"
+    let url = "http://localhost:8080/user"
 
 
     let myHeaders = new Headers();
