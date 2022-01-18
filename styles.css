@@ -638,5 +638,39 @@ form input[type="submit"]:active, form input[type="reset"]:active {
     width: 30%;
 }
 
-.user-info{
+#user-results{
+    margin: 1em auto 1em auto;
+    width: 80%;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info {
+    margin: 1em auto 1em auto;
+    border: 3.5px solid var(--menuColor);
+    border-radius: 7px;
+    background-color: white;
+}
+
+#intro {
+    text-align: center;
+    font-weight: lighter;
+    font-size: medium;
+}
+
+.user-info > h3 {
+    text-align: center;
+    padding: 1em;
+
+}
+
+.user-info > ul {
+    padding-left: 10em;
+    padding-right: 10em;
+    padding-bottom: 1em;
+}
+
+.user-info > ul > li {
+    margin-bottom: 8px;
 }

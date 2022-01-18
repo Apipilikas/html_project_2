@@ -1,11 +1,12 @@
 const urlPOST = "http://localhost:8080/signin"
-const urlGET = "http://localhost:8080/user?email="
+const urlGET = "http://localhost:8080/user/"
 
 window.onload = init;
 
 var templates = {}
 
 templates.users = Handlebars.compile(`
+<h3 id="intro">Επιτυχής είσοδος στο προφίλ!</h3>
 <section class="user-info">
     <h3>{{name}}</h3>
     <ul>
@@ -52,8 +53,8 @@ function init() {
                     console.log(responseMsg)
                     console.log(status)
                     if (status == "202") {
+                        disableForm(form);
                         makeGETRequest(urlGET, emailValue, div);
-                        console.log("ok here")
                     }
                     else {
                         console.log(">!< Looks like something went wrong :/ >!<");
@@ -146,17 +147,17 @@ function makeGETRequest(url, email, div) {
 
     fetch(url + email, init)
         .then(response => {
-                return response.json();
+            return response.json();
         })
         .then(data => {
 
             console.log(data);
             let userItem = {
-                "name": data.firstname + data.lastName,
-                "address": data.address,
-                "phone": data.telNumber,
-                "education": data.educationLevel,
-                "email": data.email
+                "name": "🧍 " + data._firstName + " " + data._lastName,
+                "address": data._address,
+                "phone": data._telNumber,
+                "education": data._educationLevel,
+                "email": data._email
             }
 
             let userContent = templates.users(userItem);
@@ -167,4 +168,15 @@ function makeGETRequest(url, email, div) {
         .catch(error => {
             console.log(">!< Fetch error >!<", error);
         })
+}
+
+function disableForm(form) {
+    let formInputs = form.getElementsByTagName('input');
+    let buttonsArea = document.getElementById('signin-form-buttons');
+    console.log(buttonsArea)
+
+    for (input of formInputs) {
+        input.readOnly = true;
+    }
+    buttonsArea.style.display = "none";
 }

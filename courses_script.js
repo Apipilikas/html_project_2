@@ -5,7 +5,7 @@ window.onload = init;
 var templates = {}
 
 templates.subjects = Handlebars.compile(`
-<h2>Tομέας: <span>{{category}}</span></h2>
+<h2>Μαθήματα κατηγορίας</h2>
 {{#each subjects}}
 <article class="subject">
     <div id="image-title-inCourses">
@@ -56,29 +56,7 @@ function makeRequest(url, id, div){
     })
     .then (data => {
 
-        var category_title = ""
-
-        switch (parseInt(id)) {
-            case 1:
-                category_title = "Τεχνολογίες Πληροφοριών";
-                console.log(category_title)
-              break;
-            case 2:
-                category_title = "Μάνατζμεντ & Στρατηγική";
-              break;
-            case 3:
-                category_title = "Στατιστική και Ανάλυση Δεδομένων";
-              break;
-            case 4:
-              day = "Μάρκετινγκ & Πωλήσεις";
-              category_title;
-            case 5:
-                category_title = "Χρηματοοικονομικά & Λογιστική";
-              break;
-          }
-
         let subjectData = {
-            "category":category_title,
             "subjects":[]
         }
 
