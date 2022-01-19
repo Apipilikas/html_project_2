@@ -25,7 +25,6 @@ function init() {
         const validatePasswordValue = validatePassword.value.trim();
         console.log("Submission button clicked!")
 
-        //sendPostRequest(userdata);
         let valid = new Array(5).fill(false);
 
         // Text inputs
@@ -37,7 +36,7 @@ function init() {
         // Email input
         valid[2] = checkEmail(emailValue, alertBoxemailIn);
 
-        // Password input
+        // Password inputs
         valid[3] = confirmPassword(passwordValue, alertBoxpswrdIn);
         if (valid[3]) {
             valid[4] = validatePasswords(passwordValue, validatePasswordValue, alertBoxvalpswrdIn);
@@ -55,8 +54,6 @@ function init() {
                 email: emailValue,
                 password: passwordValue
             }
-
-            //console.log(userdata);
 
             sendPostRequest(userdata)
                 .then(response => {
@@ -130,26 +127,37 @@ function checkTelNumber(value, alertBox) {
 }
 
 function checkEmail(value, alertBox) {
-    let flag = true;
+    let flag = false;
     let constraints = /^([a-zA-Z\d\.-]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,4})(\.[a-zA-Z]{2,4})?$/;
     if (constraints.test(value)) {
         hideBox(alertBox);
+        flag = true;
+    }
+    else if (isEmpty(value)) {
+        showBox(alertBox, "Συμπληρώστε το πεδίο.");
     }
     else {
         showBox(alertBox, "To email που συμπληρώσατε δεν είναι έγκυρο.");
-        flag = false;
     }
     return flag;
 }
 
 function confirmPassword(password, alertBox) {
     let flag = false;
+    let numberRule = /[1-9]{1}/;
+    let letterRule = /[a-zA-Z]{1}/;
     let specialCharactersRule = /[ !@#$%^&*]/;
 
     if (password.length < 8) {
         showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες.");
     }
-    else if (!specialCharactersRule.test(password)) {
+    else if (! letterRule.test(password)) {
+        showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον ένα λατινικό γράμμα.")
+    }
+    else if (! numberRule.test(password)) {
+        showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον έναν αριθμό.")
+    }
+    else if (! specialCharactersRule.test(password)) {
         showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον ένα από τα ειδικά σύμβολα !@#$%^&*.");
     }
     else {
@@ -206,12 +214,9 @@ function changeToFail(box, spans, link, message) {
     spans[2].innerHTML = "Φόρμα";
 }
 
-//✔✖
-
 function disableForm(form) {
     let formInputs = form.getElementsByTagName('input');
     let buttonsArea = document.getElementById('reg-form-buttons');
-    console.log(buttonsArea)
 
     for (input of formInputs) {
         input.readOnly = true;
@@ -220,7 +225,7 @@ function disableForm(form) {
 }
 
 function sendPostRequest(data) {
-    let url = "http://localhost:8080/user"
+    let url = "http://localhost:8080/registerUser"
 
 
     let myHeaders = new Headers();
@@ -233,9 +238,5 @@ function sendPostRequest(data) {
         body: JSON.stringify(data)
     };
 
-    return fetch(url, init)
-    // .then(response => response.json())
-    // .then(responseMsg => {
-    //     console.log(responseMsg.msg)
-    // })
+    return fetch(url, init);
 }

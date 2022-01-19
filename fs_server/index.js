@@ -11,11 +11,10 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/user/:email', function (req, res) {
-  console.log("GET request arrived!")
   let contenType = req.header('Accept');
 
   if (contenType === 'application/json') {
-    console.log("The email is ",req.params.email)
+    console.log("New GET request with email param ",req.params.email)
     dao.findUserByEmail(req.params.email)
       .then(result => {
         res.send(result[0]);
@@ -37,7 +36,7 @@ app.post('/signin', function (req, res) {
             .then(userResult => {
               if (userResult[0]._password === req.body.signin_password) { //correct password
                 console.log("User signin successfully! Send status 202.");
-                res.status(202).send({ msg: "Ο χρήστης εισήγαγε σωστά στοιχεία εισόδου!" });
+                res.status(202).send({ msg: "Ο χρήστης εισήγαγε σωστά τα στοιχεία εισόδου!" });
               }
               else { //false password
                 console.log("User signin not successful! Send status 410.");
@@ -53,7 +52,7 @@ app.post('/signin', function (req, res) {
   }
 })
 
-app.post('/user', function (req, res) {
+app.post('/registerUser', function (req, res) {
 
   let contenType = req.header('Content-Type');
 

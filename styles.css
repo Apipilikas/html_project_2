@@ -183,6 +183,10 @@ footer > p {
 /* END-OF: footer */
 /* START-OF: index.html */
 
+.main-content > h2 {
+    color: #6277b6;
+}
+
 #search-area-content {
     display: flex;
     flex-direction: column;
@@ -223,7 +227,6 @@ footer > p {
     background-color: #6e97fd;
     font-family: 'Manrope', sans-serif;
     font-weight: 700;
-    /* color: white; */
     transition-duration: 0.5s;
 }
 
@@ -255,7 +258,6 @@ footer > p {
     background-color: #b4c8fc;
     border-radius: 5px;
     width: 50%;
-    /* padding-bottom: 0.25em; */
 }
 
 #results-area-content > h3 {
@@ -283,7 +285,6 @@ footer > p {
     display: grid;
     grid-template-columns: 0.2fr 0.8fr;
     grid-template-areas: "img title";
-    /* padding: 1em; */
 }
 
 .subject > #img-title-content > h4 {
@@ -300,6 +301,32 @@ footer > p {
 
 .subject > p {
     padding: 1em;
+}
+
+#main-introduction {
+    background-color: #d5ebf2;
+}
+
+.about_article {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.about_article h3 {
+    grid-area: 1/1/2/2;
+    margin: 1em;
+}
+
+.about_article img {
+    grid-area: 2/1/4/2;
+    margin: 2em;
+}
+
+.about_article p {
+    grid-area: 2/2/4/4;
+    margin: auto;
 }
 
 .about_us {
@@ -324,10 +351,6 @@ footer > p {
     font-size: large;
 }
 
-#end_about {
-    margin-bottom: 5em;
-}
-
 #end_about p{
     max-width: 80em;
 }    
@@ -344,6 +367,7 @@ footer > p {
 #first {
     margin-top: 1em;
 }
+
 
 /* dropdown menu*/
 .dropdown {
@@ -555,6 +579,10 @@ form input[type="submit"]:active, form input[type="reset"]:active {
 /* END-OF: register.html */
 /* START-OF: courses.html */
 
+#subject-results > h2 {
+    color: #6277b6;
+}
+
 #subject-results > h2 > span {
     color: rgb(0, 102, 255);
 }
@@ -646,6 +674,15 @@ form input[type="submit"]:active, form input[type="reset"]:active {
     flex-direction: column;
 }
 
+#alert-box-results {
+    display: none;
+}
+
+#alert-box-results > .alert-box {
+    width: 25%;
+    margin: auto;
+}
+
 .user-info {
     margin: 1em auto 1em auto;
     border: 3.5px solid var(--menuColor);
@@ -674,3 +711,4 @@ form input[type="submit"]:active, form input[type="reset"]:active {
 .user-info > ul > li {
     margin-bottom: 8px;
 }
+/* END-OF: profile.html */

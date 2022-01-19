@@ -6,7 +6,6 @@ window.onload = init;
 var templates = {}
 
 templates.users = Handlebars.compile(`
-<h3 id="intro">Επιτυχής είσοδος στο προφίλ!</h3>
 <section class="user-info">
     <h3>{{name}}</h3>
     <ul>
@@ -25,6 +24,7 @@ function init() {
     const password = document.getElementById('profile-password-txt');
     const alertBoxpswrdIn = document.querySelector('#signin-password-input-pswrd > .alert-box');
     const div = document.querySelector('#user-results');
+    const alertResultBox = document.querySelector('#alert-box-results');
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -52,11 +52,14 @@ function init() {
                 .then(responseMsg => {
                     console.log(responseMsg)
                     console.log(status)
+                    showAlertBox(alertResultBox);
                     if (status == "202") {
                         disableForm(form);
                         makeGETRequest(urlGET, emailValue, div);
+                        changeToSuccess(alertResultBox.children[0], responseMsg.msg);
                     }
                     else {
+                        changeToFail(alertResultBox.children[0], responseMsg.msg);
                         console.log(">!< Looks like something went wrong :/ >!<");
                     }
                     console.log(responseMsg.msg)
@@ -90,6 +93,9 @@ function checkPassword(password, alertBox) {
     if (isEmpty(password)) {
         showBox(alertBox, "Συμπληρώστε το πεδίο.")
         flag = false;
+    }
+    else {
+        hideBox(alertBox);
     }
     return flag;
 }
@@ -179,4 +185,18 @@ function disableForm(form) {
         input.readOnly = true;
     }
     buttonsArea.style.display = "none";
+}
+
+function showAlertBox(box) {
+    box.style.display = "initial";
+}
+
+function changeToSuccess(box, message) {
+    box.style.backgroundColor = "rgba(40, 212, 40, 0.63)";
+    box.innerHTML = message;
+}
+
+function changeToFail(box, message) {
+    box.style.backgroundColor = "rgba(247, 30, 30, 0.651)";
+    box.innerHTML = message;
 }
