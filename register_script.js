@@ -6,7 +6,7 @@ function init() {
     const alertBoxtxtIn = document.querySelectorAll('.input-text > .alert-box');
     const telInput = document.querySelector('input[type="tel"]');
     const alertBoxtelIn = document.querySelector('.input-tel > .alert-box');
-    const emailInput = document.querySelector('input[type="email"]')
+    const emailInput = document.querySelector('input[type="email"]');
     const alertBoxemailIn = document.querySelector('.input-email > .alert-box');
     const password = document.getElementById('password-txt');
     const alertBoxpswrdIn = document.querySelector('#password-input-pswrd > .alert-box');
@@ -24,20 +24,19 @@ function init() {
         const passwordValue = password.value.trim();
         const validatePasswordValue = validatePassword.value.trim();
         console.log("Submission button clicked!")
-        
-        //sendPostRequest(userdata);
+
         let valid = new Array(5).fill(false);
-        
+
         // Text inputs
         valid[0] = checktxtInputs(txtInputs, alertBoxtxtIn);
-        
+
         // Tel input
         valid[1] = checkTelNumber(telValue, alertBoxtelIn);
-        
+
         // Email input
         valid[2] = checkEmail(emailValue, alertBoxemailIn);
-        
-        // Password input
+
+        // Password inputs
         valid[3] = confirmPassword(passwordValue, alertBoxpswrdIn);
         if (valid[3]) {
             valid[4] = validatePasswords(passwordValue, validatePasswordValue, alertBoxvalpswrdIn);
@@ -47,44 +46,42 @@ function init() {
             let status = "201";
 
             let userdata = {
-            firstName: txtInputs[0].value,
-            lastName: txtInputs[1].value,
-            address: txtInputs[2].value,
-            telNumber: telValue,
-            educationLevel: txtInputs[3].value,
-            email: emailValue,
-            password: passwordValue
+                firstName: txtInputs[0].value,
+                lastName: txtInputs[1].value,
+                address: txtInputs[2].value,
+                telNumber: telValue,
+                educationLevel: txtInputs[3].value,
+                email: emailValue,
+                password: passwordValue
             }
 
-            //console.log(userdata);
-            
             sendPostRequest(userdata)
-            .then(response => {
-                status = response.status;
-                return response.json();
-            })
-            .then(responseMsg => {
-                blurMain();
-                disableForm(form);
-                showResultBox(resultBoxWindow);
-                if (status == "201") {
-                    changeToSuccess(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
-                }
-                else {
-                    changeToFail(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
-                }
-                console.log(responseMsg.msg)
-            })
-            .catch(error => {
-                console.log(">!< Fetch error >!<", error);
-            });
+                .then(response => {
+                    status = response.status;
+                    return response.json();
+                })
+                .then(responseMsg => {
+                    blurMain();
+                    disableForm(form);
+                    showResultBox(resultBoxWindow);
+                    if (status == "201") {
+                        changeToSuccess(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
+                    }
+                    else {
+                        changeToFail(resultBox, resultBoxSpans, resultBoxLink, responseMsg.msg);
+                    }
+                    console.log(responseMsg.msg)
+                })
+                .catch(error => {
+                    console.log(">!< Fetch error >!<", error);
+                });
         }
     });
 }
 
 function isFormValid(validArray) {
     for (valid of validArray) {
-        if (! valid) {
+        if (!valid) {
             return false;
         }
     }
@@ -119,7 +116,7 @@ function checkTelNumber(value, alertBox) {
     if (isEmpty(value)) {
         showBox(alertBox, "Συμπληρώστε το πεδίο.")
     }
-    else if (! constraints.test(value)) {
+    else if (!constraints.test(value)) {
         showBox(alertBox, "O αριθμός που συπληρώσατε δεν είναι έκγυρος.");
     }
     else {
@@ -130,24 +127,35 @@ function checkTelNumber(value, alertBox) {
 }
 
 function checkEmail(value, alertBox) {
-    let flag = true;
+    let flag = false;
     let constraints = /^([a-zA-Z\d\.-]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,4})(\.[a-zA-Z]{2,4})?$/;
     if (constraints.test(value)) {
         hideBox(alertBox);
+        flag = true;
+    }
+    else if (isEmpty(value)) {
+        showBox(alertBox, "Συμπληρώστε το πεδίο.");
     }
     else {
         showBox(alertBox, "To email που συμπληρώσατε δεν είναι έγκυρο.");
-        flag = false;
     }
     return flag;
 }
 
 function confirmPassword(password, alertBox) {
     let flag = false;
+    let numberRule = /[1-9]{1}/;
+    let letterRule = /[a-zA-Z]{1}/;
     let specialCharactersRule = /[ !@#$%^&*]/;
-    
+
     if (password.length < 8) {
         showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες.");
+    }
+    else if (! letterRule.test(password)) {
+        showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον ένα λατινικό γράμμα.")
+    }
+    else if (! numberRule.test(password)) {
+        showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον έναν αριθμό.")
     }
     else if (! specialCharactersRule.test(password)) {
         showBox(alertBox, "O κωδικός πρέπει να περιέχει τουλάχιστον ένα από τα ειδικά σύμβολα !@#$%^&*.");
@@ -206,12 +214,9 @@ function changeToFail(box, spans, link, message) {
     spans[2].innerHTML = "Φόρμα";
 }
 
-//✔✖
-
 function disableForm(form) {
     let formInputs = form.getElementsByTagName('input');
     let buttonsArea = document.getElementById('reg-form-buttons');
-    console.log(buttonsArea)
 
     for (input of formInputs) {
         input.readOnly = true;
@@ -220,7 +225,7 @@ function disableForm(form) {
 }
 
 function sendPostRequest(data) {
-    let url = "http://localhost:8080/"
+    let url = "http://localhost:8080/registerUser"
 
 
     let myHeaders = new Headers();
@@ -233,9 +238,5 @@ function sendPostRequest(data) {
         body: JSON.stringify(data)
     };
 
-    return fetch(url, init)
-    // .then(response => response.json())
-    // .then(responseMsg => {
-    //     console.log(responseMsg.msg)
-    // })
+    return fetch(url, init);
 }

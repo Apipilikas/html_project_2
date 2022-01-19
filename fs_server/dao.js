@@ -17,7 +17,7 @@ class DAO {
     }
 
     get users() {
-        return this._users.find().toArray(function(err, result){
+        return this._users.find().toArray(function (err, result) {
             if (err) {
                 throw err;
             }
@@ -26,40 +26,44 @@ class DAO {
     }
 
     //set users(nUsers) {
-        //this._users = nUsers;
+    //this._users = nUsers;
     //}
 
     addUser(data) {
-        let user = new User(data.firstName, data.lastName, data.address, 
-                            data.telNumber, data.educationLevel, data.email, data.password);
-        
+        let user = new User(data.firstName, data.lastName, data.address,
+            data.telNumber, data.educationLevel, data.email, data.password);
+
         return this._users.insertOne(user);
     }
 
     isUserWithEmail(uEmail) {
-        let query = {_email:uEmail};
+        let query = { _email: uEmail };
         return this._users.find(query).toArray()
-        .then(result => {
-            console.log("Results for user with email "+ uEmail,result)
-            if (result.length === 0) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        })
-        
+            .then(result => {
+                console.log("Results for user with email " + uEmail, result)
+                if (result.length === 0) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            })
+
         //console.log(a);
         //return flag;
     }
 
-    findUserByEmail(email) {
-        for (user of this._users) {
-            if (user.email == email) {
-                return user;
-            }
-        }
-        return null;
+    findUserByEmail(uEmail) {
+        let query = { _email: uEmail };
+        return this._users.find(query).toArray()
+            .then(result => {
+                if (result.length === 0) {
+                    return null;
+                }
+                else {
+                    return this._users.find(query).toArray();
+                }
+            })
     }
 }
 
